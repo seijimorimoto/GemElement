@@ -36,7 +36,7 @@ public class Blink : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space) && GemController.gem == GemController.ActiveGem.BLINK){
+		if (Input.GetKeyDown(KeyCode.Space) && GemController.gem == GemController.ActiveGem.BLINK && !GameController.instance.isOnDialogue){
 			dash ();
 		}
 	}

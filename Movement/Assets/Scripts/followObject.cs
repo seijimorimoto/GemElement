@@ -26,8 +26,6 @@ public class followObject : MonoBehaviour {
 		this_position = new Vector2(transform.position.x, transform.position.y);
 		target_position = new Vector2(object_to_follow.transform.position.x, object_to_follow.transform.position.y);
 	
-
-
 		if (Vector2.Distance (this_position, target_position) > max_distance ) {
 			Vector2 velocity = target_position - this_position;
 

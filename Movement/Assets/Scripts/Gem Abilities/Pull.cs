@@ -134,30 +134,42 @@ public class Pull : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (GemController.gem == GemController.ActiveGem.PULL_PUSH) {
-			// Activate pull
-			if (Input.GetKeyDown (KeyCode.O)) {
-				setObjectToPull ();
-			}
 
-			// If there's an object that's going to be pulled...
-			if (objectCollided != null) {
-				// ... pull it
-				if (objectCollided.tag == "Object")
-					pullObject ();
-				// ... pull it and rotate it around the player.
-				else if (objectCollided.tag == "Projectile") {
-					pullUntilDistance ();
-					rotateAround ();
-				}
-			}
+        if(!GameController.instance.isOnDialogue)
+        {
+            if (GemController.gem == GemController.ActiveGem.PULL_PUSH)
+            {
+                // Activate pull
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    setObjectToPull();
+                }
 
-			// Shoot projectile
-			if (Input.GetKeyDown (KeyCode.O)) {
-				if (objectCollided != null && objectCollided.tag == "Projectile" && hasObjectRotating) {
-					shootObject ();
-				}
-			}
-		}
+                // If there's an object that's going to be pulled...
+                if (objectCollided != null)
+                {
+                    // ... pull it
+                    if (objectCollided.tag == "Object")
+                        pullObject();
+                    // ... pull it and rotate it around the player.
+                    else if (objectCollided.tag == "Projectile")
+                    {
+                        pullUntilDistance();
+                        rotateAround();
+                    }
+                }
+
+                // Shoot projectile
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    if (objectCollided != null && objectCollided.tag == "Projectile" && hasObjectRotating)
+                    {
+                        shootObject();
+                    }
+                }
+            }
+        }
+
+		
 	}
 }
