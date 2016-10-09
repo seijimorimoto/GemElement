@@ -3,8 +3,6 @@ using System.Collections;
 
 public class LoadScene : MonoBehaviour {
 
-    public int iLevel;
-
 	// Use this for initialization
 	void Start () {
 	}
@@ -18,8 +16,8 @@ public class LoadScene : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("Load Scene " + iLevel);
-            Application.LoadLevel(iLevel);
+            Camera.main.orthographicSize = 4;
+            Application.LoadLevel("Pull2");
         }
         
     }

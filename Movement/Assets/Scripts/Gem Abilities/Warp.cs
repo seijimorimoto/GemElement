@@ -8,6 +8,8 @@ public class Warp : MonoBehaviour {
 	public float warpCooldown;
 	public float warpDuration;
 
+    public GameObject gbjBlueRing;
+
 	void stopObjects(){
 		GemController.objectsStopped = true;
 	}
@@ -27,7 +29,10 @@ public class Warp : MonoBehaviour {
 			if ((Time.timeSinceLevelLoad - lastWarpTime) > warpCooldown)
 				lastWarpTime = Time.timeSinceLevelLoad;
 				stopObjects ();
-		}
+            GameObject gbj = (GameObject)Instantiate(gbjBlueRing, this.transform.position, Quaternion.identity);
+            gbj.transform.parent = this.transform;
+
+        }
 
 		if (Time.timeSinceLevelLoad >= (lastWarpTime + warpDuration)){
 			awakeObjects ();

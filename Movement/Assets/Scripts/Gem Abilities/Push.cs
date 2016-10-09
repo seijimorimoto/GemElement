@@ -5,7 +5,10 @@ public class Push : MonoBehaviour {
 
 	public float pushSpeed;
 	public float maxDistance;
-	private Vector2 pushTowards;
+
+    public GameObject gbjRingGreen;
+
+    private Vector2 pushTowards;
 
 	public static GameObject objectPushed;
 
@@ -59,10 +62,12 @@ public class Push : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GemController.gem == GemController.ActiveGem.PULL_PUSH && !GameController.instance.isOnDialogue){
+		if (GemController.gem == GemController.ActiveGem.PULL_PUSH /*&& !GameController.instance.isOnDialogue*/){
 			if(Input.GetKeyDown(KeyCode.P)){
 				setObject ();
-			}
+                GameObject gbj = (GameObject)Instantiate(gbjRingGreen, this.transform.position, Quaternion.identity);
+                gbj.transform.parent = this.transform;
+            }
 
 			if(objectPushed != null){
 				pushObject ();

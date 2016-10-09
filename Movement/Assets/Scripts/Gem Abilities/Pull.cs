@@ -9,6 +9,8 @@ public class Pull : MonoBehaviour {
 	public float shootSpeed;
 	public float rotateRadio;
 
+    public GameObject gbjRingGreen;
+ 
 	public static bool hasObjectRotating;
 
 	public static GameObject objectCollided;
@@ -19,10 +21,10 @@ public class Pull : MonoBehaviour {
 	void Start () {
 		checkCollision = false;
 		maxDistance = 100f;
-		pullSpeed = 1.5f;
+		pullSpeed = 4f;
 		rotateRadio = 1.5f;
 		hasObjectRotating = false;
-		shootSpeed = 20;
+		shootSpeed = 8;
 	}
 
 	/*
@@ -116,7 +118,7 @@ public class Pull : MonoBehaviour {
 		if (hasObjectRotating){
 			objectCollided.GetComponent<Rigidbody2D> ().isKinematic = false;
 			objectCollided.transform.SetParent (this.transform);
-			objectCollided.transform.RotateAround (objectCollided.transform.parent.transform.position, Vector3.forward * -1, 100 * Time.deltaTime);
+			objectCollided.transform.RotateAround (objectCollided.transform.parent.transform.position, Vector3.forward * -1, 135 * Time.deltaTime);
 		}
 	}
 
@@ -134,42 +136,32 @@ public class Pull : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (GemController.gem == GemController.ActiveGem.PULL_PUSH) {
+			// Activate pull
+			if (Input.GetKeyDown (KeyCode.O)) {
+				setObjectToPull ();
+                GameObject gbj = (GameObject)Instantiate(gbjRingGreen, this.transform.position, Quaternion.identity);
+                gbj.transform.parent = this.transform;
+			}
 
-        if(!GameController.instance.isOnDialogue)
-        {
-            if (GemController.gem == GemController.ActiveGem.PULL_PUSH)
-            {
-                // Activate pull
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    setObjectToPull();
-                }
+			// If there's an object that's going to be pulled...
+			if (objectCollided != null) {
+				// ... pull it
+				if (objectCollided.tag == "Object")
+					pullObject ();
+				// ... pull it and rotate it around the player.
+				else if (objectCollided.tag == "Projectile") {
+					pullUntilDistance ();
+					rotateAround ();
+				}
+			}
 
-                // If there's an object that's going to be pulled...
-                if (objectCollided != null)
-                {
-                    // ... pull it
-                    if (objectCollided.tag == "Object")
-                        pullObject();
-                    // ... pull it and rotate it around the player.
-                    else if (objectCollided.tag == "Projectile")
-                    {
-                        pullUntilDistance();
-                        rotateAround();
-                    }
-                }
-
-                // Shoot projectile
-                if (Input.GetKeyDown(KeyCode.O))
-                {
-                    if (objectCollided != null && objectCollided.tag == "Projectile" && hasObjectRotating)
-                    {
-                        shootObject();
-                    }
-                }
-            }
-        }
-
-		
+			// Shoot projectile
+			if (Input.GetKeyDown (KeyCode.O)) {
+				if (objectCollided != null && objectCollided.tag == "Projectile" && hasObjectRotating) {
+					shootObject ();
+				}
+			}
+		}
 	}
 }

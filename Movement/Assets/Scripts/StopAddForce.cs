@@ -4,7 +4,8 @@ using System.Collections;
 public class StopAddForce : MonoBehaviour {
 
 	void Start(){
-		GetComponent<Rigidbody2D> ().isKinematic = true;
+		if (this.gameObject.tag == "Object")
+			GetComponent<Rigidbody2D> ().isKinematic = true;
 	}
 
 	void OnCollisionStay2D(Collision2D other){

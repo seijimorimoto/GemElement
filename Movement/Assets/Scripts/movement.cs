@@ -37,15 +37,21 @@ public class movement : MonoBehaviour {
 		this_anim = GetComponent<Animator> (); //Animator of this object set to "this_anim"
 	}
 
+	void OnCollisionEnter2D(Collision2D other){
+		if (other.gameObject.tag == "Blink"){
+			GemController.blinkObtained = true;
+			Destroy (other.gameObject);
+		}
+		else if (other.gameObject.tag == "Pad"){
+            Camera.main.orthographicSize = 3;
+            Application.LoadLevel ("OverWorld2");
+		}
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
-
-        if(!GameController.instance.isOnDialogue)
-        {
-            checkMovement();
-            animate();
-        }
-		
+		checkMovement ();
+		animate ();
 		//changeSprite ();
 
 	}
