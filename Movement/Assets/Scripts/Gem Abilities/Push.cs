@@ -59,7 +59,7 @@ public class Push : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GemController.gem == GemController.ActiveGem.PULL_PUSH){
+		if (GemController.gem == GemController.ActiveGem.PULL_PUSH && !GameController.instance.isOnDialogue){
 			if(Input.GetKeyDown(KeyCode.P)){
 				setObject ();
 			}

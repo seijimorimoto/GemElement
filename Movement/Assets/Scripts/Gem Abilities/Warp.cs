@@ -23,7 +23,7 @@ public class Warp : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space) && GemController.gem == GemController.ActiveGem.WARP){
+		if (Input.GetKeyDown(KeyCode.Space) && GemController.gem == GemController.ActiveGem.WARP && !GameController.instance.isOnDialogue){
 			if ((Time.timeSinceLevelLoad - lastWarpTime) > warpCooldown)
 				lastWarpTime = Time.timeSinceLevelLoad;
 				stopObjects ();

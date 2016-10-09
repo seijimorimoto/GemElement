@@ -39,8 +39,13 @@ public class movement : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		checkMovement ();
-		animate ();
+
+        if(!GameController.instance.isOnDialogue)
+        {
+            checkMovement();
+            animate();
+        }
+		
 		//changeSprite ();
 
 	}
